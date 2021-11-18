@@ -1,16 +1,41 @@
-var activePlayer = 0;
+// Тоглоомын бүх газар ашиглагдах хувьсагчдыг зарлана.
+var activePlayer;
 
-var scores = [0, 0];
+var scores;
 
-var roundScore = 0;
-
-document.getElementById("score-0").textContent = "0";
-document.getElementById("score-1").textContent = "0";
-document.getElementById("current-0").textContent = "0";
-document.getElementById("current-1").textContent = "0";
-
+var roundScore;
+// Шооны зургийг үзүүлэх элементийг DOM-оос храйж олоод энд хадгалъя.
 var diceDom = document.querySelector(".dice");
-diceDom.style.display = "none";
+
+// Тоглоомыг эхлүүлнэ
+initGame();
+
+// Тоглоомыг шинээр эхлэхэд бэлтгэнэ.
+function initGame() {
+  activePlayer = 0;
+
+  scores = [0, 0];
+
+  roundScore = 0;
+
+  document.getElementById("score-0").textContent = "0";
+  document.getElementById("score-1").textContent = "0";
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
+
+  // Тоглогчдын нэрийг буцааж гаргах
+  document.getElementById("name-0").textContent = "Player 1";
+  document.getElementById("name-1").textContent = "Player 2";
+
+  document.querySelector(".player-0-panel").classList.remove("winner");
+  document.querySelector(".player-1-panel").classList.remove("winner");
+
+  document.querySelector(".player-0-panel").classList.remove("active");
+  document.querySelector(".player-1-panel").classList.remove("active");
+  document.querySelector(".player-0-panel").classList.add("active");
+  diceDom.style.display = "none";
+}
+
 // Шоог шидэх эвент листенер
 document.querySelector(".btn-roll").addEventListener("click", function () {
   // 1 - 6 доторх санамсаргүй нэг тоо гаргаж авна.
@@ -83,6 +108,4 @@ function switchToNextPlayer() {
 
 // Шинэ тоглоом эхлүүлэх товчны эвентлистнер
 
-document.querySelector(".btn-new").addEventListener("click", function () {
-  alert("clicked");
-});
+document.querySelector(".btn-new").addEventListener("click", initGame);
